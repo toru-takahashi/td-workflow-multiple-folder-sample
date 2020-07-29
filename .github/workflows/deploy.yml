@@ -1,34 +1,22 @@
 name: Treasure Workflow Deploy
 
-# Workflow is exeuted when a code is pushed to Master
-#on:
-#  push:
-#    branches:
-#      - master
-
-# The ⭐️ button is used to launch the workflow if it's possible, like this.
-# https://dev.to/s_abderemane/manual-trigger-with-github-actions-279e
-on:
-  watch:
-    types: [started]
+on: push
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
-    # you can launch your workflow only if it's the owner who trigger the action.
-    if: github.actor == github.event.repository.owner.login
-
     steps:
     - uses: actions/checkout@v2
     - name: Digdag Push to TD
     - uses: docker://szyn/docker-digdag:latest
-      run: |
-          digdag push project1 --project project1 $td_wf_endpoint -X client.http.headers.authorization="TD1 $td_master_apikey"
-          digdag push project2 --project project2 $td_wf_endpoint -X client.http.headers.authorization="TD1 $td_master_apikey"
-      with:
+      env:
         # Treasure Workflow API Endpoint
         td_wf_endpoint: api-workflow.treasuredata.com
         # Treasure Data Master API
         td_master_apikey: ${{ secrets.td_master_apikey }}
+      run: |
+          digdag push project1 --project project1 $td_wf_endpoint -X client.http.headers.authorization="TD1 $td_master_apikey"
+          digdag push project2 --project project2 $td_wf_endpoint -X client.http.headers.authorization="TD1 $td_master_apikey"
+
