@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Push to TD Workflow
+    - uses: docker://szyn/docker-digdag:latest
       env:
         # Treasure Workflow API Endpoint
         td_wf_endpoint: api-workflow.treasuredata.com
