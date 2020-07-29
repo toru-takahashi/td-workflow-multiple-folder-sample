@@ -1,10 +1,10 @@
 name: Treasure Workflow Deploy
 
 # Workflow is exeuted when a code is pushed to Master
-on:
-  push:
-    branches:
-      - master
+#on:
+#  push:
+#    branches:
+#      - master
 
 jobs:
   build:
