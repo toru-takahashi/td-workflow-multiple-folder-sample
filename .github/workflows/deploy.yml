@@ -1,0 +1,24 @@
+name: Treasure Workflow Deploy
+
+# Workflow is exeuted when a code is pushed to Master
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Use Digdag Docker
+    - uses: docker://szyn/docker-digdag:latest
+      with:
+        # Treasure Workflow API Endpoint
+        td_wf_endpoint: api-workflow.treasuredata.com
+        # Treasure Data Master API
+        td_master_apikey: ${{ secrets.td_master_apikey }}
+        script: |
+          digdag push project1 --project project1 $td_wf_endpoint -X client.http.headers.authorization="TD1 $td_master_apikey"
+          digdag push project2 --project project2 $td_wf_endpoint -X client.http.headers.authorization="TD1 $td_master_apikey"

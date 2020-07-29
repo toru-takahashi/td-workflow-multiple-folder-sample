@@ -1,0 +1,9 @@
+timezone: UTC
+
+_export:
+  td:
+    database: sample_datasets
+    
++select_data:
+  td>:
+  query: select 2 from www_access;
