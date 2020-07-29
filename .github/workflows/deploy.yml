@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - shell: bash
+    - name: Push to TD Workflow
       env:
         # Treasure Workflow API Endpoint
         td_wf_endpoint: api-workflow.treasuredata.com
