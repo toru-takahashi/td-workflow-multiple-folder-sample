@@ -10,14 +10,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: docker://szyn/docker-digdag:latest
+    - name: push workflows
       env:
         # Treasure Workflow API Endpoint
         td_wf_endpoint: api-workflow.treasuredata.com
         # Treasure Data Master API
         td_master_apikey: ${{ secrets.td_master_apikey }}
       run: |
-        curl -o ./digdag --create-dirs -L "https://dl.digdag.io/digdag-latest"
-        chmod +x ./digdag
         digdag push project1 --project project1 $td_wf_endpoint -X client.http.headers.authorization="TD1 $td_master_apikey"
         digdag push project2 --project project2 $td_wf_endpoint -X client.http.headers.authorization="TD1 $td_master_apikey"
 
