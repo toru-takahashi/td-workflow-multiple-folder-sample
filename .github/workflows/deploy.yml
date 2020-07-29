@@ -6,10 +6,19 @@ name: Treasure Workflow Deploy
 #    branches:
 #      - master
 
+# The ⭐️ button is used to launch the workflow if it's possible, like this.
+# https://dev.to/s_abderemane/manual-trigger-with-github-actions-279e
+on:
+  watch:
+    types: [started]
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    # you can launch your workflow only if it's the owner who trigger the action.
+    if: github.actor == github.event.repository.owner.login
 
     steps:
     - name: Use Digdag Docker
