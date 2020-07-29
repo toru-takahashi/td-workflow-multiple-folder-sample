@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: ./.github/workflow/
+    - uses: .github/workflow/
       env:
         # Treasure Workflow API Endpoint
         td_wf_endpoint: api-workflow.treasuredata.com
